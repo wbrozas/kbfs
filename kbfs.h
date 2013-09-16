@@ -1,7 +1,8 @@
-#ifndef KBFS_SUPERBLOCK_H
-#define KBFS_SUPERBLOCK_H
+#ifndef KBFS_H
+#define KBFS_H
 #include <stdint.h>
-typedef struct _kbfs_superblock {
+
+typedef struct _kbfs_super_block {
     uint32_t s_inodes_count;
     uint32_t s_blocks_count;
     uint32_t s_r_blocks_count;
@@ -41,5 +42,36 @@ typedef struct _kbfs_superblock {
     uint8_t s_prealloc_dir_blocks;
     uint16_t s_padding1;
     uint32_t s_reserved[204];
-} kbfs_superblock;
+} super_block;
+
+typedef struct _kbfs_group_descriptor {
+    uint32_t bg_block_bitmap;
+    uint32_t bg_inode_bitmap;
+    uint32_t bg_inode_table;
+    uint16_t bg_free_blocks_count;
+    uint16_t bg_free_inodes_count;
+    uint16_t bg_used_dirs_count;
+    uint16_t bg_pad;
+    uint32_t bg_reserved[3];
+} group_descriptor;
+
+typedef struct _kbfs_inode {
+    uint16_t i_mode;
+    uint16_t i_uid;
+    uint32_t i_size;
+    uint32_t i_atime;
+    uint32_t i_ctime;
+    uint32_t i_mtime;
+    uint32_t i_dtime;
+    uint16_t i_gid;
+    uint16_t i_links_count;
+    uint32_t i_blocks;
+    uint32_t i_flags;
+    uint32_t i_block Pointers to data blocks[EXT2_N_BLOCKS] 
+    uint32_t i_generation;
+    uint32_t i_file_acl;
+    uint32_t i_dir_acl;
+    uint32_t i_faddr;
+} inode;
+
 #endif
